@@ -6,6 +6,7 @@ const app = new Koa();
 import Router from 'koa-router';
 import Log4jUtils from './log4j.utils';
 import {exec} from './mysql.utils';
+import session from 'koa-session';
 
 const router = new Router();
 const string = `[ 当前进程：${process.pid} 系统平台：${process.platform} 进程名：${process.title} ] `
@@ -66,6 +67,20 @@ app.listen(port, ()=>{
     console.info(string, Colors.green(`this SQL plugin is loaded`));
     console.info(string, Colors.green(`the server is started`));
     console.info(string, Colors.green(`start port is ${port}`));
+    console.info(string, Colors.green(`set session information`));
+    app.keys = ['user session scret'];
+    const SESSION_CONFIG = { 
+        key: 'user:session',
+        maxAge: 86400000,
+        autoCommit: true,
+        overwrite: true,
+        httpOnly: true,
+        signed: true,
+        rolling: true,
+        renew: true
+    };
+    app.use(session(SESSION_CONFIG, app));
+    console.info(string, Colors.green(`finish`));
 });
 
 

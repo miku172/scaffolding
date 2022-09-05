@@ -1,7 +1,7 @@
 {
   "name": "datasoftwarecenter",
   "version": "1.0.0",
-  "description": "node服务端脚手架",
+  "description": "大数据应用中心 网络报修 网络策略",
   "main": "index.ts",
   "scripts": {
     "start": "node --experimental-worker node_modules/ts-node/dist/bin ./index.ts --files --node-env=development --max-old-space-size=1024",
@@ -9,8 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "node",
-    "服务端脚手架"
+    "网络报修",
+    "网络策略"
   ],
   "author": "zkx",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "json5": "^2.2.1",
     "koa": "^2.13.4",
     "koa-router": "^12.0.0",
+    "koa-session": "^6.2.0",
     "log4js": "^6.6.1",
     "mysql": "^2.18.1"
   },
@@ -27,6 +28,7 @@
     "@types/json5": "^2.2.0",
     "@types/koa": "^2.13.5",
     "@types/koa-router": "^7.4.4",
+    "@types/koa-session": "^5.10.6",
     "@types/log4js": "^2.3.5",
     "@types/mysql": "^2.15.21",
     "@types/node": "^18.7.14",
