@@ -5,6 +5,8 @@
     "module": "CommonJS",
     "target": "es5",
     "allowJs": true,
-    "esModuleInterop" : true
-  }
+    "esModuleInterop" : true,
+    "suppressImplicitAnyIndexErrors": true
+  },
+  "include": ["typing.d.ts"]
 }

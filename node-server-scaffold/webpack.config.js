@@ -4,8 +4,9 @@ const path = require("path");
 const fs = require('fs');
 const terserWebpackPlugin = require('terser-webpack-plugin');
 const copyWebpackPlugin = require('copy-webpack-plugin');
+const nodeExternals = require('webpack-node-externals');
 
-const isProduction = process.env.NODE_ENV == "production";
+const isProduction = true//process.env.NODE_ENV == "production";
 
 module.exports = function (env, argvs) {
   const config = Object.assign({});
@@ -31,13 +32,13 @@ module.exports = function (env, argvs) {
   config.module.rules = rules;
   config.module.parser = { javascript: { dynamicImportMode: 'lazy' } };
   config.resolve = { extensions: ['.js', '.ts', '.json', '.json5', '.ini'] };
-  config.optimization = { minimize: false, minimizer: [new terserWebpackPlugin({ extractComments: false, terserOptions: { format: { comments: false } } })] };
+  config.optimization = { minimize: true, minimizer: [new terserWebpackPlugin({ extractComments: false, terserOptions: { format: { comments: false } } })] };
   config.cache = { type: 'filesystem', cacheDirectory: path.resolve(__dirname, '.cache'), cacheLocation: path.resolve(__dirname, '.cache'), hashAlgorithm: 'md5', maxAge: 24 * 60 * 60 * 1000, store: 'pack' };
   config.target = 'node';
   config.watch = false;
-  config.watchOptions = { aggregateTimeout: 600, ignored: ['node_modules', '.cache'], poll: 800 };
-  config.performance = { hints: !isProduction ? false : 'error' };
-  const externals = [];
+  config.watchOptions = { aggregateTimeout: 600, ignored: ['node_modules', '.cache', 'logs'], poll: 800 };
+  config.performance = { hints: !isProduction ? false : 'error', maxAssetSize: 250000000, maxEntrypointSize: 250000000 };
+  const externals = [nodeExternals()];
   for (let i in dirs) {
     externals.push(`./subPackages/${dirs[i]}/main/resources`);
     externals.push(`./subPackages/${dirs[i]}/test`);
