@@ -6,8 +6,14 @@
     "target": "es5",
     "allowJs": true,
     "esModuleInterop" : true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "resolveJsonModule": true
   },
-  "include": ["typing.d.ts"],
-  "exclude": ["node_modules"]
+  "include": ["typings.d.ts", "subPackages/**/*/*.d.ts"],
+  "exclude": ["node_modules"],
+  "ts-node": {
+    "files": true
+  }
 }

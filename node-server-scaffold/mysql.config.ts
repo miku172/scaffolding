@@ -1,7 +1,6 @@
 import path from 'path';
 import * as fs from 'fs';
-import MYSQL from 'mysql';
-
+const MYSQL = require('mysql8.0');
 // 配置mysql
 const myIniExsists = fs.existsSync(path.resolve(__dirname, 'my.ini'));
 if(!myIniExsists) throw new Error(`my.ini file is not found`);
@@ -28,7 +27,7 @@ if(!config.database || !config.username){
     throw new Error(`the username and database are required`);
 }
 const connection = MYSQL.createPool({
-    connectionLimit: 1000,
+    connectionLimit: 100,
     host: config.host,
     port: config.port,
     password: config.password,
